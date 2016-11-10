@@ -1,0 +1,13 @@
+{
+    "name": "wok/wok",
+    "description": "The Web Operational Kit framework",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sébastien ALEXANDRE",
+            "email": "sebastien@graphidev.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
