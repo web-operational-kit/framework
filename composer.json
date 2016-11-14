@@ -2,6 +2,7 @@
     "name": "wok/framework",
     "description": "The Web Operational Kit framework",
     "type": "project",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sébastien ALEXANDRE",
