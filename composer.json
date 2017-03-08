@@ -41,7 +41,6 @@
         "post-package-update": [
         ],
         "post-create-project-cmd": [
-            "@wok-instanciate"
         ],
         "wok-instanciate": [
             "Scripts\\Composer\\Composer::createProjectInstance"

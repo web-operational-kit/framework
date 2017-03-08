@@ -11,7 +11,7 @@
          * Create a new project instance
          * ---
         **/
-        static public function createProjectInstance(Event $event) {
+        static public function createProjectInstance(PackageEvent $event) {
 
             var_dump(
                 $event->getName(),
