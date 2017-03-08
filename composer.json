@@ -30,6 +30,6 @@
             "Controllers\\": "src/Controllers",
             "Models\\": "src/Models"
         }
-    },
+    }
 
 }
