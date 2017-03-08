@@ -1,5 +1,6 @@
 {
     "name": "wok/framework",
+    version: "0.1.0-dev",
     "description": "The Web Operational Kit framework",
     "type": "project",
     "license": "MIT",
