@@ -17,9 +17,22 @@
         }
     },
     "scripts": {
-        "post-package-install": "@wok-install",
-        "post-package-update": "@wok-update",
-        "post-create-project-cmd": "@wok-install",
+        "post-install-cmd": [
+            "@wok-install"
+        ],
+        "post-package-install": [
+            "@wok-install"
+        ],
+        "post-update-cmd": [
+            "@wok-update"
+        ],
+        "post-package-update": [
+            "@wok-update"
+        ],
+
+        "post-create-project-cmd": [
+            "@wok-install"
+        ],
         "wok-install": [
             "WOK\\Framework\\Composer\\Scripts::install"
         ],
