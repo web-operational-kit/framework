@@ -17,20 +17,9 @@
         }
     },
     "scripts": {
-        "pre-install-cmd": [
-
-        ],
-        "post-install-cmd": [
-            "@wok-install",
-            "@wok-cleanup"
-        ],
-        "post-update-cmd": [
-            "@wok-update",
-            "@wok-cleanup"
-        ],
-        "post-create-project-cmd": [
-            "@wok-install"
-        ],
+        "post-package-install": "@wok-install",
+        "post-package-update": "@wok-update",
+        "post-create-project-cmd": "@wok-install",
         "wok-install": [
             "WOK\\Framework\\Composer\\Scripts::install"
         ],
