@@ -1,12 +1,12 @@
 <?php
 
-    namespace WOK\Framework\Composer;
+    namespace WOK\Scripts;
 
     use Composer\Script\Event;
     // use Composer\Installer\PackageEvent;
 
 
-    class Scripts {
+    class Composer {
 
         public static function install(Event $event) {
 
