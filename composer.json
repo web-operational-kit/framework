@@ -3,26 +3,32 @@
     "description": "The Web Operational Kit framework",
     "type": "project",
     "license": "MIT",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Sébastien ALEXANDRE",
             "email": "sebastien@graphidev.fr"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
-        "monolog/monolog": "^1.22",
-        "league/plates": "^3.3",
-        "doctrine/cache": "^1.6",
-        "symfony/translation": "^3.2",
         "wok/httpmessage": "^0.4.2",
-        "wok/router": "^0.4.0"
+        "wok/router": "^0.4.0",
+        "wok/services": "^1.1",
+        "monolog/monolog": "^1.22",
+        "symfony/translation": "^3.2",
+        "swiftmailer/swiftmailer": "^5.4",
+        "league/plates": "^3.3",
+        "jolicode/jolitypo": "^1.0",
+        "doctrine/cache": "^1.6"
+    },
+    "require-dev": {
+        "filp/whoops": "^2.1"
     },
     "autoload": {
         "psr-4": {
-            "WOK\\Scripts\\": "./src/Scripts",
+            "Scripts\\": "./src/Scripts",
             "Controllers\\": "src/Controllers",
-            "Models\\": "src/Models",
+            "Models\\": "src/Models"
         }
     },
     "scripts": {
@@ -35,16 +41,14 @@
         "post-package-update": [
         ],
         "post-create-project-cmd": [
-            "@wok-install"
+            "@wok-instanciate"
         ],
-        "wok-install": [
-            "WOK\\Framework\\Composer\\Scripts::install"
+        "wok-instanciate": [
+            "Scripts\\Composer\\Composer::createProjectInstance"
         ],
         "wok-update": [
-            "WOK\\Framework\\Composer\\Scripts::update"
         ],
         "wok-cleanup": [
-            "WOK\\Framework\\Composer\\Scripts::update"
         ]
     },
     "extra": {
@@ -53,4 +57,5 @@
         "wok-var-dir": "var",
         "wok-www-dir": "www"
     }
+
 }
