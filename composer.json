@@ -31,30 +31,5 @@
             "Models\\": "src/Models"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-        ],
-        "post-package-install": [
-        ],
-        "post-update-cmd": [
-        ],
-        "post-package-update": [
-        ],
-        "post-create-project-cmd": [
-        ],
-        "wok-instanciate": [
-            "Scripts\\Composer\\Composer::createProjectInstance"
-        ],
-        "wok-update": [
-        ],
-        "wok-cleanup": [
-        ]
-    },
-    "extra": {
-        "wok-etc-dir": "etc",
-        "wok-src-dir": "src",
-        "wok-var-dir": "var",
-        "wok-www-dir": "www"
-    }
 
 }
