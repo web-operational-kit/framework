@@ -16,7 +16,6 @@
         "wok/services": "^1.1",
         "monolog/monolog": "^1.22",
         "symfony/translation": "^3.2",
-        "swiftmailer/swiftmailer": "^5.4",
         "league/plates": "^3.3",
         "jolicode/jolitypo": "^1.0",
         "doctrine/cache": "^1.6"
@@ -30,6 +29,10 @@
             "Controllers\\": "src/Controllers",
             "Models\\": "src/Models"
         }
+    },
+    "suggest": {
+        "swiftmailer/swiftmailer": "Send mails easily",
+        "themattharris/tmhoauth": "An OAuth library"
     }
 
 }
