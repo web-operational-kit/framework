@@ -11,6 +11,7 @@
      *
     **/
 
+
     /**
      *
      * Dependencies
@@ -21,9 +22,8 @@
      * @see ../composer.json
      *
     **/
-    require "../etc/config.php";
     require "../vendor/autoload.php";
-
+    require "../etc/config.php";
 
 
     /**
@@ -49,7 +49,7 @@
      *
     **/
     $request    = WOK\HttpMessage\ServerRequest::createFromGlobals();
-    $response   = new WOK\HttpMessage\Response();
+    $response   = WOK\HttpMessage\Response::createFromRequest($request);
 
 
     /***
@@ -58,7 +58,8 @@
      * ---
      *
      * Update routes while the server request target is prefixed
-     * with a parent local path.
+     * with a parent local path. Eg:
+     * /path-to-my-url  ->  /project/path-to-my-url
      *
     **/
     $router = call_user_func(require "../etc/routes.php", $settings);
@@ -102,22 +103,32 @@
      * Services
      * ---
      *
+     * Define main services
+     *
     **/
     $services = call_user_func(require "../etc/services.php", $settings);
-    $services->addService('settings',       $settings);
-    $services->addService('request',        $request);
-    $services->addService('request',        $request);
-    $services->addService('response',       $response);
-    $services->addService('router',         $router);
+    $services->addService('Settings',       $settings);
+    $services->addService('Request',        $request);
+    $services->addService('Response',       $response);
+    $services->addService('Router',         $router);
 
-    if($settings->environment['debug']) {
+
+    /**
+     *
+     * Filp/Whoops
+     * ---
+     *
+     * Display errors on debug environment
+     *
+    **/
+    if($settings->environment & WOK_ENV_DEBUG) {
 
         $whoops = new \Whoops\Run;
         $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 
         $whoops->pushHandler(function($exception, $inspector, $run) use($services) {
 
-            $monolog = $services->getService('monolog');
+            $monolog = $services->getService('Monolog');
             $monolog->error($exception->getMessage());
 
             return \Whoops\Handler\Handler::DONE;
@@ -128,10 +139,29 @@
 
     }
 
+
+    /**
+     * Define the route exec
+    **/
+    $exec = function($route) {
+        
+        // Execute the controller action
+        list($controller, $action) = $route->action;
+        $reflection = new \ReflectionClass($controller);
+        $controller = $reflection->newInstance($services);
+
+        // @note This call the __invoke() controller method
+        call_user_func($controller, $action, $route->parameters);
+
+    };
+
+
     /**
      *
-     * Generate the response
+     * Response
      * ---
+     *
+     * Execute the request associated action
      *
     **/
     try {
@@ -142,55 +172,32 @@
         // We define a default error route in this case.
         try {
 
-            $action = $router->match($request->getMethod(), $request->getUri());
+            $route = $router->match($request->getMethod(), $request->getUri());
 
         }
         catch(Exception $e) {
 
-            $action = (object) array(
+            $route = (object) array(
                 'name'          => 'Site\Errors->pageNotFound',
-                'controller'    => 'Controllers\Site\Errors',
-                'action'        => 'pageNotFound',
+                'action'        => ['Controllers\Site\Errors', 'pageNotFound'],
                 'parameters'    => array('exception' => $e)
             );
 
         }
 
-        // Assign request parameters
-        $attributes = $request->getAttributes()->all();
-        $request    = $request->withAttributes(array_merge($attributes, $action->parameters));
-        $services->addService('request', $request);
-
-        // Execute the controller action
-        $reflection = new \ReflectionClass($action->controller);
-        $controller = $reflection->newInstance($services);
-
-        // @note This call the __invoke() controller method
-        call_user_func($controller, $action->action, $action->parameters);
+        $exec($route);
 
     }
 
     // Call the Errors::internalError controller
     catch(Exception $e) {
 
-        $action = (object) array(
+        $route = (object) array(
             'name'          => 'Site\Errors->internalError',
-            'controller'    => 'Controllers\Site\Errors',
-            'action'        => 'internalError',
+            'action'        => ['Controllers\Site\Errors', 'internalError'],
             'parameters'    => array('exception' => $e)
         );
 
-        // Assign request parameters
-        $attributes = $request->getAttributes()->all();
-        $request    = $request->withAttributes(array_merge($attributes, $action->parameters));
-        $services->addService('request', $request);
-
-
-        // Execute the controller action
-        $reflection = new \ReflectionClass($action->controller);
-        $controller = $reflection->newInstance($services);
-
-        // @note This call the __invoke() controller method
-        call_user_func($controller, $action->action, $action->parameters);
+        $exec($route);
 
     }

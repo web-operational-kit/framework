@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+
+    #RewriteBase /
+    Options +FollowSymlinks
+
+    #RewriteCond %{HTTP_HOST} !^(www|api|lab)\. [NC]
+    #RewriteRule ^(.*)$ http://www\.%{HTTP_HOST}/$1 [L,R=302]
+
+    # Force HTTP scheme to be defined
+    RewriteCond %{HTTPS} off
+    RewriteRule .* - [E=REQUEST_SCHEME:http]
+
+    RewriteCond %{HTTPS} on
+    RewriteRule .* - [E=REQUEST_SCHEME:https]
+
+    # Retrieve rewrite base
+    RewriteCond %{ENV:URI} ^$
+    RewriteRule ^(.*)$ - [ENV=URI:$1]
+
+    RewriteCond %{ENV:BASE} ^$
+    RewriteCond %{ENV:URI}::%{REQUEST_URI} ^(.*)::(.*?)\1$
+    RewriteRule ^ - [ENV=BASE:%2]
+
+    # Redirect every request to index.php
+    # except files and folders direct access
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ %{ENV:BASE}index.php [L]
+
+</IfModule>
