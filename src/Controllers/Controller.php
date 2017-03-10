@@ -25,7 +25,7 @@
         public function __construct(Services $services) {
 
             $this->services = $services;
-            $this->settings = $services->getService('settings');
+            $this->settings = $services->getService('Settings');
 
         }
 

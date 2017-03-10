@@ -143,8 +143,8 @@
     /**
      * Define the route exec
     **/
-    $exec = function($route) {
-        
+    $exec = function($route) use($services) {
+
         // Execute the controller action
         list($controller, $action) = $route->action;
         $reflection = new \ReflectionClass($controller);
