@@ -68,6 +68,7 @@
 
         $abspath = realpath($request->getServerParam('DOCUMENT_ROOT'));
         $prefix  = mb_substr(__DIR__, mb_strlen($abspath));
+        $prefix  = str_replace(DIRECTORY_SEPARATOR, '/', $prefix);
 
         $request->setAttribute('RequestTargetPrefix', $prefix);
 
