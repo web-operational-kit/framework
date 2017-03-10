@@ -14,18 +14,21 @@
             $locale = $settings->locales->default;
         }
 
-        $source = __ROOT_DIR__.'/'.$settings->services->plates->source;
+        $config = $settings->services->plates;
 
-        $plates = new Plates($source.'/'.$path);
+        $sourcepath = __ROOT_DIR__.'/'.$config->source;
+        $extension  = (!empty($config->extension) $config->extension : 'php');
+
+        $plates = new Plates($sourcepath.'/'.$path, $extension);
 
         /**
          * Set folders
          * ---
          * @see http://platesphp.com/engine/folders/
         **/
-        $plates->addFolder('templates', $source.'/'.$path);
+        $plates->addFolder('templates', $sourcepath.'/'.$path);
         foreach($settings->services->plates->folders as $key => $folder) {
-            $plates->addFolder($name, $source.'/'.$path.'/'.$folder);
+            $plates->addFolder($name, $sourcepath.'/'.$path.'/'.$folder);
         }
 
 

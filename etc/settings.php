@@ -23,6 +23,7 @@
     const WOK_ENV_PREPROD       = 0x02;
     const WOK_ENV_PRODUCTION    = 0x08;
 
+
     return (object) array(
 
 
@@ -66,10 +67,11 @@
             **/
             'plates'  => (object) array(
 
+                'extension' => 'php',
                 'source'    => 'src/Templates',
                 'folders'   => array(
                     'parts'    => 'parts',
-                )
+                ),
 
             ),
 
