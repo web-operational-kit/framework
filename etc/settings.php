@@ -12,6 +12,13 @@
      * the WOK\Collection\Collection component.
      *
     **/
+
+    /**
+     * @const WOK_ENV_DEBUG          Debug environment value
+     * @const WOK_ENV_PREPROD        Pre-production environment value
+     * @const WOK_ENV_PRODUCTION     Production environment value
+     * @note  You could add some more environment constants using the binary values
+    **/
     const WOK_ENV_DEBUG         = 0x01;
     const WOK_ENV_PREPROD       = 0x02;
     const WOK_ENV_PRODUCTION    = 0x08;
