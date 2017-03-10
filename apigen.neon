@@ -1,0 +1,58 @@
+# APIGen NEON file options
+# You can also get a copy of these by running `apigen generate --help`
+# Go here (http://ne-on.org/) for "validating" your neon file and learning about the language
+# @source https://www.snip2code.com/Snippet/499423/apigen-neon-file-example-(apigen-neon)
+
+# Title of generated documentation.
+title: WOK Router
+
+# Dirs or files documentation is generated for.
+source:
+    - src/
+    - etc/
+    - www/
+
+# Target dir for documentation.
+destination: api/
+
+# Access levels of included method and properties. (default: ["public","protected"]) (multiple values allowed)
+accessLevels:
+    - public
+    - private
+    - protected
+
+# Turn on debug mode.
+debug: true
+
+# Generate documentation for elements marked as @deprecated
+deprecated: false
+
+# Scanned file extensions. (default: ["php"]) (multiple values allowed)
+extensions:
+    - php
+
+# Directories and files matching this mask will not be parsed (e.g. */tests/*). (multiple values allowed)
+exclude:
+    - vendor/
+
+# The way elements are grouped in menu. (default: "auto") (options: auto, namespaces[=default], packages)
+groups:  namespaces
+
+# Charset of scanned files. (multiple values allowed)
+charset:
+    - utf-8
+
+# ApiGen template theme name. (default: "default")
+templateTheme: bootstrap
+
+# Include elements marked as @internal.
+internal: true
+
+# Generate documentation for PHP internal classes.
+php: true
+
+# Generate documentation for elements marked as @todo.
+todo: true
+
+# Generate tree view of classes, interfaces, traits and exceptions.
+tree: true
